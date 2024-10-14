@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "673234402608",
+    "project_id": "basicsocialmediakotlin",
+    "storage_bucket": "basicsocialmediakotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673234402608:android:db1f964d9531de98089cf5",
+        "android_client_info": {
+          "package_name": "com.example.kotlinbasicsocialmedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1KjoVQrWql0MRKqOMASpLjq_l4_V3MIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
