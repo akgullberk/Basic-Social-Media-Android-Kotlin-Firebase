@@ -4,19 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinbasicsocialmedia.databinding.ActivityFeedBinding
+import com.example.kotlinbasicsocialmedia.model.Post
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class FeedActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityFeedBinding
     private lateinit var auth : FirebaseAuth
+    private lateinit var db : FirebaseFirestore
+    private lateinit var postArrayList : ArrayList<Post>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +38,39 @@ class FeedActivity : AppCompatActivity() {
         }
 
         auth = Firebase.auth
+        db = Firebase.firestore
+
+        postArrayList = ArrayList<Post>()
+
+        getData()
+
+    }
+
+    private fun getData(){
+
+        db.collection("Posts").addSnapshotListener { value, error ->
+
+            if(error != null){
+                Toast.makeText(this,error.localizedMessage,Toast.LENGTH_LONG).show()
+            }else{
+                if(value != null){
+                    if(!value.isEmpty){
+                        val documents = value.documents
+
+                        for(document in documents){
+                            val comment = document.get("comment") as String
+                            val userEmail = document.get("userEmail") as String
+                            val downloadUrl = document.get("downloadUrl") as  String
+
+                            val post = Post(userEmail,comment,downloadUrl)
+                            postArrayList.add(post)
+
+
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
@@ -48,6 +87,7 @@ class FeedActivity : AppCompatActivity() {
             startActivity(intent)
         }else if(item.itemId == R.id.signout){
             auth.signOut()
+
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()
