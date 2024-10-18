@@ -1,4 +1,4 @@
-package com.example.kotlinbasicsocialmedia
+package com.example.kotlinbasicsocialmedia.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.kotlinbasicsocialmedia.databinding.ActivityFeedBinding
+import com.example.kotlinbasicsocialmedia.R
 import com.example.kotlinbasicsocialmedia.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if(currentUser!= null){
-            val intent = Intent(this,FeedActivity::class.java)
+            val intent = Intent(this, FeedActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         }else{
             auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
-                val intent = Intent(this@MainActivity,FeedActivity::class.java)
+                val intent = Intent(this@MainActivity, FeedActivity::class.java)
                 startActivity(intent)
                 finish()
             }.addOnFailureListener { exception ->
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         }else{
             auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
-                val intent = Intent(this@MainActivity,FeedActivity::class.java)
+                val intent = Intent(this@MainActivity, FeedActivity::class.java)
                 startActivity(intent)
                 finish()
             }.addOnFailureListener { exception ->
